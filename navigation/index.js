@@ -8,7 +8,7 @@ const RootNavigation = () => {
   const { user } = useAuthentication();
 
 
-  return user ? <UserStack /> : <AuthStack />;
+  return !user ? <UserStack /> : <AuthStack />;
 }
 
 export default RootNavigation;
