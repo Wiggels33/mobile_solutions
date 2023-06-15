@@ -26,7 +26,7 @@ const Dashboard = () => {
   return (
     <Swiper index={1}>
       <Dash1 data={data} />
-      <Dash2 />
+      <Dash2 data={data} />
       <Dash3 />
     </Swiper>
   );

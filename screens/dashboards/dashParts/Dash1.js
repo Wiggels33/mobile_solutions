@@ -1,13 +1,14 @@
 import React from "react";
 import { Text, View } from "react-native";
-import fetchData from "../../../utils/hooks/fetch";
+import SessionSummary from "../../../components/sessionSummary/SessionSummary";
+import styles from "./dash.styles";
 
 const Dash1 = ({ data }) => {
   console.log(data);
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Dash 1</Text>
-      <Text>{data.current.condition.text}</Text>
+      <SessionSummary data={data} />
     </View>
   );
 };
