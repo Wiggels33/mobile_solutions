@@ -6,12 +6,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import {handleLogIn, handleSignUp} from "../../Authentification";
+import { handleLogIn } from "../../Authentification";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-
+  const [location, setLocation] = useState("El Medano");
 
   return (
     <KeyboardAvoidingView behavior={"padding"}>
@@ -31,10 +30,7 @@ const Login = () => {
           />
         </View>
         <View>
-          <TouchableOpacity onPress={() => handleSignUp(email,password)}>
-            <Text>Register</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleLogIn(email,password)}>
+          <TouchableOpacity onPress={() => handleLogIn(email, password)}>
             <Text>Login</Text>
           </TouchableOpacity>
         </View>
