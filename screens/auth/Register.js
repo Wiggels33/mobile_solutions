@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import * as ImagePicker from "expo-image-picker";
-
 import {
   Button,
   Image,
@@ -9,14 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 import { handleSignUp } from "../../Authentification";
-import { onAuthStateChanged } from "firebase/auth";
 
 const Register = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -29,15 +27,10 @@ const Register = () => {
       alert("You did not select any image.");
     }
   };
-  const placeholderImage = require("../../constants/Images/Profilbild.png");
   const imageSource =
-    selectedImage !== null ? { uri: selectedImage } : placeholderImage;
-
-  const handleRegister = () => {
-    handleSignUp(email, password, name, selectedImage);
-  };
-
-  useEffect(() => {});
+    selectedImage !== null
+      ? { uri: selectedImage }
+      : require("../../constants/Images/Profilbild.png");
 
   return (
     <View>
@@ -49,8 +42,8 @@ const Register = () => {
       <View>
         <TextInput
           placeholder={"Name"}
-          value={name}
-          onChangeText={(text) => setName(text)}
+          value={displayName}
+          onChangeText={(text) => setDisplayName(text)}
         />
         <TextInput
           placeholder={"Email"}
@@ -65,7 +58,9 @@ const Register = () => {
           secureTextEntry
         />
       </View>
-      <TouchableOpacity onPress={handleRegister}>
+      <TouchableOpacity
+        onPress={() => handleSignUp(email, password, displayName)}
+      >
         <Text>Register</Text>
       </TouchableOpacity>
     </View>

@@ -5,11 +5,16 @@ import { Button, Text, TextInput } from "react-native";
 import fetchData from "../../utils/hooks/fetch";
 import { StyleSheet, ImageBackground } from "react-native";
 import { COLORS, SIZES } from "../../constants";
-
+import { useAuthentication } from "../../utils/hooks/useAuthentication";
 const Dashboard = () => {
   const [data, setData] = useState(null);
   const [city, setCity] = useState("Sydney");
   const [region, setRegion] = useState({});
+
+  const user = useAuthentication();
+
+  console.log(user);
+
   const getData = async () => {
     try {
       const response = await fetchData(city);
