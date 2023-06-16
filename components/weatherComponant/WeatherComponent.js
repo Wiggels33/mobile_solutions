@@ -1,8 +1,9 @@
 import React from "react";
-import { Image, StyleSheet } from "react-native";
+import { Image } from "react-native";
 
+import styles from "./WeatherComponent.styles";
 import { Text, View } from "react-native";
-import { COLORS, SIZES } from "../../constants";
+import { BlurView } from "expo-blur";
 
 const WeatherComponent = ({ data }) => {
   const weatherIcon = require("./../../constants/Images/icon_weather.png");
@@ -35,58 +36,36 @@ const WeatherComponent = ({ data }) => {
   const windDir = "wind direction: " + data.current.wind_dir;
   return (
     <View style={styles.container}>
-      <View style={styles.col}>
-        <View style={styles.containerIcon}>
-          <Image source={weatherIcon} />
-          <Text style={styles.iconText}>{data.current.condition.text}</Text>
+      <BlurView style={styles.containerBlur}>
+        <View style={styles.containerWeather}>
+          <View style={styles.col}>
+            <View style={styles.containerIcon}>
+              <Image source={weatherIcon} />
+              <Text style={styles.iconText}>{data.current.condition.text}</Text>
+            </View>
+            <View style={styles.containerText}>
+              <Text style={styles.text}>{temp}</Text>
+              <Text style={styles.text}>{"UV Index:" + data.current.uv}</Text>
+            </View>
+          </View>
+          <View style={styles.col}>
+            <View style={styles.containerIcon}>
+              <Image source={icon_wind} />
+              <Text style={styles.iconText}>{wind}</Text>
+            </View>
+            <View>
+              <Text style={styles.text}>{windText}</Text>
+              <Text style={styles.text}>{windDir}</Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.containerText}>
-          <Text style={styles.text}>{temp}</Text>
-          <Text style={styles.text}>{"UV Index:" + data.current.uv}</Text>
-        </View>
-      </View>
-      <View style={styles.col}>
-        <View style={styles.containerIcon}>
-          <Image source={icon_wind} />
-          <Text style={styles.iconText}>{wind}</Text>
-        </View>
-        <View>
-          <Text style={styles.text}>{windText}</Text>
-          <Text style={styles.text}>{windDir}</Text>
-        </View>
-      </View>
+        <Image
+          source={require("../../constants/Images/chart.png")}
+          style={styles.image}
+        />
+      </BlurView>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: SIZES.medium,
-    paddingHorizontal: SIZES.xxSmall,
-    backgroundColor: COLORS.gray,
-    borderRadius: SIZES.medium,
-    gap: SIZES.xxLarge,
-    flexDirection: "row",
-  },
-  col: {
-    gap: SIZES.xxSmall,
-  },
-  containerIcon: {
-    flexDirection: "row",
-    gap: SIZES.xxSmall,
-    alignItems: "flex-end",
-  },
-  containerText: {
-    gap: 4,
-  },
-  iconText: {
-    fontSize: SIZES.medium,
-    color: COLORS.white,
-    fontWeight: "bold",
-  },
-  text: {
-    color: COLORS.white,
-    fontSize: SIZES.xSmall,
-  },
-});
 export default WeatherComponent;

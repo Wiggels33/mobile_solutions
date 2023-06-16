@@ -3,11 +3,13 @@ import { COLORS, SIZES } from "../../constants";
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: SIZES.medium,
-    paddingHorizontal: SIZES.xxSmall,
-    backgroundColor: COLORS.gray,
     borderRadius: SIZES.medium,
     gap: SIZES.medium,
+    overflow: "hidden",
+  },
+  containerBlur: {
+    paddingVertical: SIZES.medium,
+    paddingHorizontal: SIZES.xxSmall,
   },
   containerText: {
     flexDirection: "column",

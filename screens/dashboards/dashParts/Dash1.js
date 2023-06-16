@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import SessionSummary from "../../../components/sessionSummary/SessionSummary";
 import styles from "./dash.styles";
+import News from "../../../components/news/News.component";
 
 const Dash1 = ({ data }) => {
   console.log(data);

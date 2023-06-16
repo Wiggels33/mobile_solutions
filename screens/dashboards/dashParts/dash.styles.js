@@ -4,6 +4,7 @@ import { SIZES } from "../../../constants";
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: SIZES.small,
+    gap: SIZES.medium,
   },
 });
 
