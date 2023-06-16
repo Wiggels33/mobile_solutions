@@ -1,6 +1,5 @@
-const fetchData = async () => {
-  const url =
-    "https://weatherapi-com.p.rapidapi.com/current.json?q=53.1%2C-0.13";
+const fetchData = async (city) => {
+  const url = `https://weatherapi-com.p.rapidapi.com/current.json?q=${city}`;
   const options = {
     method: "GET",
     headers: {

@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Swiper from "react-native-swiper";
 import { Dash1, Dash2, Dash3 } from "./dashParts";
-import { Text } from "react-native";
+import { Button, Text, TextInput } from "react-native";
 import fetchData from "../../utils/hooks/fetch";
 import { StyleSheet, ImageBackground } from "react-native";
+import { COLORS, SIZES } from "../../constants";
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
+  const [city, setCity] = useState("Sydney");
+  const [region, setRegion] = useState({});
+  const getData = async () => {
+    try {
+      const response = await fetchData(city);
+      setData(response);
+      setRegion({
+        latitude: response.location.lat,
+        longitude: response.location.lon,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      });
+      console.log("fetch Successful");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetchData();
-        setData(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getData();
   }, []);
 
@@ -29,9 +39,16 @@ const Dashboard = () => {
       source={require("../../constants/Images/dashboard_background.png")}
       style={styles.imageBg}
     >
+      <TextInput
+        style={styles.textInput}
+        placeholder={"city"}
+        value={city}
+        onChangeText={(text) => setCity(text)}
+      />
+      <Button title={"Get Data"} onPress={getData} />
       <Swiper index={1} style={styles.container}>
         <Dash1 data={data} />
-        <Dash2 data={data} />
+        <Dash2 data={data} region={region} />
         <Dash3 />
       </Swiper>
     </ImageBackground>
@@ -43,6 +60,14 @@ const styles = StyleSheet.create({
   imageBg: {
     flex: 1,
     resizeMode: "cover",
+  },
+  textInput: {
+    paddingHorizontal: SIZES.xSmall,
+    paddingVertical: SIZES.xxSmall,
+    fontSize: SIZES.medium,
+    backgroundColor: COLORS.white,
+    marginHorizontal: SIZES.xSmall,
+    borderRadius: SIZES.small,
   },
 });
 

@@ -6,6 +6,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.small,
     gap: SIZES.medium,
   },
+  map: {
+    width: "100%",
+    height: 200,
+    borderRadius: SIZES.medium,
+  },
 });
 
 export default styles;
