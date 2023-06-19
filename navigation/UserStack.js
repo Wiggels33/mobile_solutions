@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Dashboard, Discover, Glasses, Live } from "../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { COLORS } from "../constants";
+import HeaderLeft from "../components/headerLeft/headerLeft";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +14,7 @@ const screenOptions = {
     backgroundColor: COLORS.primaryBg,
   },
   headerRight: () => <Text style={{ color: COLORS.white }}>HeaderRight</Text>,
-  headerLeft: () => <Text style={{ color: COLORS.white }}>HeaderLeft</Text>,
+  headerLeft: () => <HeaderLeft />,
 };
 
 const tabOptions = { headerTintColor: COLORS.white };
