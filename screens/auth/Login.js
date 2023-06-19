@@ -6,7 +6,21 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { handleLogIn } from "../../Authentification";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebaseConfig";
+
+const handleLogIn = (auth, email, password) => {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log("LogIn Success!");
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorMessage);
+    });
+};
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +44,7 @@ const Login = () => {
           />
         </View>
         <View>
-          <TouchableOpacity onPress={() => handleLogIn(email, password)}>
+          <TouchableOpacity onPress={() => handleLogIn(auth, email, password)}>
             <Text>Login</Text>
           </TouchableOpacity>
         </View>

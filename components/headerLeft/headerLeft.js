@@ -7,7 +7,7 @@ import { COLORS, SIZES } from "../../constants";
 const HeaderLeft = () => {
   const user = auth.currentUser;
 
-  return (
+  return user ? (
     <View style={styles.container}>
       <Image style={styles.image} source={{ uri: user.photoURL }} />
       <View>
@@ -15,7 +15,7 @@ const HeaderLeft = () => {
         <Text style={styles.text}>{user.displayName}</Text>
       </View>
     </View>
-  );
+  ) : null;
 };
 
 const styles = StyleSheet.create({
