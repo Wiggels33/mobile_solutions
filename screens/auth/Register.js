@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { auth } from "../../config/firebaseConfig";
+import React, { useState } from "react";
 import {
   Button,
   Image,
@@ -8,7 +9,33 @@ import {
   View,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { handleSignUp } from "../../Authentification";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
+const handleSignUp = (auth, email, password, displayName, selectedImage) => {
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCedential) => {
+      const user = userCedential.user;
+      console.log("USERCEDENTIAL: ", userCedential);
+      console.log("SignUp Success!");
+      updateProfile(user, {
+        displayName: displayName,
+        photoURL: selectedImage,
+      })
+        .then(() => {
+          // Profil aktualisiert erfolgreich - neuer displayName ist jetzt in user.displayName
+          console.log("Display name updated successfully");
+        })
+        .catch((error) => {
+          // Ein Fehler ist aufgetreten
+          console.error("Error updating display name:", error);
+        });
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log("ERROR:", errorMessage, errorCode);
+    });
+};
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +48,7 @@ const Register = () => {
       allowsEditing: true,
       quality: 1,
     });
-    if (result) {
+    if (result !== null) {
       setSelectedImage(result.assets[0].uri);
     } else {
       alert("You did not select any image.");
@@ -59,7 +86,9 @@ const Register = () => {
         />
       </View>
       <TouchableOpacity
-        onPress={() => handleSignUp(email, password, displayName)}
+        onPress={() =>
+          handleSignUp(auth, email, password, displayName, selectedImage)
+        }
       >
         <Text>Register</Text>
       </TouchableOpacity>

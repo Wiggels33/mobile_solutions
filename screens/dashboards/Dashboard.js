@@ -12,7 +12,6 @@ const Dashboard = () => {
   const [region, setRegion] = useState({});
 
   const user = useAuthentication();
-
   console.log(user);
 
   const getData = async () => {
@@ -32,7 +31,9 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    getData();
+    if (user) {
+      getData();
+    }
   }, []);
 
   if (!data) {
