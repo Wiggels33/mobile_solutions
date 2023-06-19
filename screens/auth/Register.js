@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import * as ImagePicker from "expo-image-picker";
-
+import { auth } from "../../config/firebaseConfig";
+import React, { useState } from "react";
 import {
   Button,
   Image,
@@ -9,35 +8,56 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { handleSignUp } from "../../Authentification";
-import { onAuthStateChanged } from "firebase/auth";
+import * as ImagePicker from "expo-image-picker";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
+const handleSignUp = (auth, email, password, displayName, selectedImage) => {
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCedential) => {
+      const user = userCedential.user;
+      console.log("USERCEDENTIAL: ", userCedential);
+      console.log("SignUp Success!");
+      updateProfile(user, {
+        displayName: displayName,
+        photoURL: selectedImage,
+      })
+        .then(() => {
+          // Profil aktualisiert erfolgreich - neuer displayName ist jetzt in user.displayName
+          console.log("Display name updated successfully");
+        })
+        .catch((error) => {
+          // Ein Fehler ist aufgetreten
+          console.error("Error updating display name:", error);
+        });
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log("ERROR:", errorMessage, errorCode);
+    });
+};
 
 const Register = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1,
     });
-    if (result) {
+    if (result !== null) {
       setSelectedImage(result.assets[0].uri);
     } else {
       alert("You did not select any image.");
     }
   };
-  const placeholderImage = require("../../constants/Images/Profilbild.png");
   const imageSource =
-    selectedImage !== null ? { uri: selectedImage } : placeholderImage;
-
-  const handleRegister = () => {
-    handleSignUp(email, password, name, selectedImage);
-  };
-
-  useEffect(() => {});
+    selectedImage !== null
+      ? { uri: selectedImage }
+      : require("../../constants/Images/Profilbild.png");
 
   return (
     <View>
@@ -49,8 +69,8 @@ const Register = () => {
       <View>
         <TextInput
           placeholder={"Name"}
-          value={name}
-          onChangeText={(text) => setName(text)}
+          value={displayName}
+          onChangeText={(text) => setDisplayName(text)}
         />
         <TextInput
           placeholder={"Email"}
@@ -65,7 +85,11 @@ const Register = () => {
           secureTextEntry
         />
       </View>
-      <TouchableOpacity onPress={handleRegister}>
+      <TouchableOpacity
+        onPress={() =>
+          handleSignUp(auth, email, password, displayName, selectedImage)
+        }
+      >
         <Text>Register</Text>
       </TouchableOpacity>
     </View>

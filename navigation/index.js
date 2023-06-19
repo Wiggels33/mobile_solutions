@@ -10,7 +10,6 @@ const RootNavigation = () => {
   if (user === undefined) {
     console.log("USER === NULL");
   }
-
   return user ? <UserStack /> : <AuthStack />;
 };
 
