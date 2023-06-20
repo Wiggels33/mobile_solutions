@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import { default_profil } from "../../constants";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const handleSignUp = (auth, email, password, displayName, selectedImage) => {
@@ -54,16 +55,15 @@ const Register = () => {
       alert("You did not select any image.");
     }
   };
+
   const imageSource =
-    selectedImage !== null
-      ? { uri: selectedImage }
-      : require("../../constants/Images/Profilbild.png");
+    selectedImage !== null ? { uri: selectedImage } : default_profil;
 
   return (
     <View>
       <Image
         source={imageSource}
-        style={{ width: 100, height: 100, borderWidth: 2, borderColor: "red" }}
+        style={{ width: 100, height: 100, borderWidth: 2 }}
       />
       <Button title={"Choose Image"} onPress={pickImage} />
       <View>
@@ -86,9 +86,13 @@ const Register = () => {
         />
       </View>
       <TouchableOpacity
-        onPress={() =>
-          handleSignUp(auth, email, password, displayName, selectedImage)
-        }
+        onPress={handleSignUp(
+          auth,
+          email,
+          password,
+          displayName,
+          selectedImage
+        )}
       >
         <Text>Register</Text>
       </TouchableOpacity>

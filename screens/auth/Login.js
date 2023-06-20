@@ -18,7 +18,7 @@ const handleLogIn = (auth, email, password) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorMessage);
+      console.log(errorCode, errorMessage);
     });
 };
 const Login = () => {
@@ -35,6 +35,7 @@ const Login = () => {
             placeholder={"Email"}
             value={email}
             onChangeText={(text) => setEmail(text)}
+            autoCapitalize={"none"}
           />
           <TextInput
             placeholder={"Password"}

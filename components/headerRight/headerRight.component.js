@@ -1,11 +1,11 @@
 import React from "react";
-
-import { Image, Text, View } from "react-native";
+import { Image, View } from "react-native";
+import { icon_settings } from "../../constants";
 
 const HeaderRight = () => {
   return (
     <View>
-      <Image source={require("../../constants/Images/icon_settings.png")} />
+      <Image source={icon_settings} />
     </View>
   );
 };

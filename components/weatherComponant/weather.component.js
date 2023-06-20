@@ -1,13 +1,13 @@
 import React from "react";
 import { Image } from "react-native";
 
-import styles from "./WeatherComponent.styles";
+import styles from "./weather.styles";
 import { Text, View } from "react-native";
 import { BlurView } from "expo-blur";
 
 const WeatherComponent = ({ data }) => {
-  const weatherIcon = require("./../../constants/Images/icon_weather.png");
-  const icon_wind = require("../../constants/Images/icon_wind.png");
+  const weatherIcon = require("../../constants/images/icon_weather.png");
+  const icon_wind = require("../../constants/images/icon_wind.png");
   const temp =
     "temp: " +
     data.current.temp_c +
@@ -60,7 +60,7 @@ const WeatherComponent = ({ data }) => {
           </View>
         </View>
         <Image
-          source={require("../../constants/Images/chart.png")}
+          source={require("../../constants/images/chart.png")}
           style={styles.image}
         />
       </BlurView>

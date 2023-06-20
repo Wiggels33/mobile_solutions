@@ -42,7 +42,7 @@ const Dashboard = () => {
 
   return (
     <ImageBackground
-      source={require("../../constants/Images/dashboard_background.png")}
+      source={require("../../constants/images/dashboard_background.png")}
       style={styles.imageBg}
     >
       <TextInput
