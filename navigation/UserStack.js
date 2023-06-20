@@ -6,6 +6,7 @@ import { Dashboard, Discover, Glasses, Live } from "../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { COLORS } from "../constants";
 import HeaderLeft from "../components/headerLeft/headerLeft";
+import HeaderRight from "../components/headerRight/headerRight.component";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +14,7 @@ const screenOptions = {
   headerStyle: {
     backgroundColor: COLORS.primaryBg,
   },
-  headerRight: () => <Text style={{ color: COLORS.white }}>HeaderRight</Text>,
+  headerRight: () => <HeaderRight />,
   headerLeft: () => <HeaderLeft />,
 };
 

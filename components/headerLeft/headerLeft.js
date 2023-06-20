@@ -24,10 +24,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: SIZES.small,
+    paddingLeft: SIZES.small,
+    paddingBottom: SIZES.small,
   },
   image: {
     width: 40,
-    height: 40,
+    aspectRatio: 1 / 1,
     borderRadius: 100,
   },
   text: {
